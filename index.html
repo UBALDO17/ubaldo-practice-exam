@@ -876,28 +876,6 @@
         .modal-content>div:first-child button:hover {
             background: #f0f0f0;
         }
-
-        body.dark-mode #passwordInput {
-            background: #1a1a2e;
-            color: #e4e4e4;
-            border-color: #16213e;
-        }
-
-        @keyframes shake {
-
-            0%,
-            100% {
-                transform: translateX(0);
-            }
-
-            25% {
-                transform: translateX(-5px);
-            }
-
-            75% {
-                transform: translateX(5px);
-            }
-        }
     </style>
 </head>
 
@@ -1046,22 +1024,6 @@
                 style="margin: 20px 0; padding: 15px; background: #fff3cd; border-radius: 8px; text-align: left;"></div>
             <div class="modal-buttons">
                 <button class="btn-cancel" onclick="closeUnansweredModal()">OK, I'll finish answering</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- Password Modal -->
-    <div class="modal active" id="passwordModal" style="display: flex;">
-        <div class="modal-content">
-            <div class="modal-icon">🔒</div>
-            <div class="modal-title">Access Required</div>
-            <div class="modal-message">
-                Please ask Leslie Ann Navarro for password.
-            </div>
-            <input type="password" id="passwordInput" placeholder="Enter password"
-                style="width: 100%; padding: 12px; margin: 20px 0; border: 2px solid #e0e0e0; border-radius: 8px; font-size: 16px; box-sizing: border-box;">
-            <div class="modal-buttons">
-                <button class="btn-confirm" onclick="checkPassword()">Submit</button>
             </div>
         </div>
     </div>
@@ -2013,45 +1975,6 @@
                 });
             }, 100);
         }
-
-        function checkPassword() {
-            const password = document.getElementById('passwordInput').value;
-            const correctPassword = "Bonly!"; // Change this to your desired password
-
-            if (password === correctPassword) {
-                document.getElementById('passwordModal').classList.remove('active');
-                document.getElementById('passwordModal').style.display = 'none';
-            } else {
-                // Shake animation for wrong password
-                const modal = document.querySelector('#passwordModal .modal-content');
-                modal.style.animation = 'shake 0.3s';
-                setTimeout(() => {
-                    modal.style.animation = '';
-                }, 300);
-
-                // Change message temporarily
-                const message = document.querySelector('#passwordModal .modal-message');
-                const originalText = message.textContent;
-                message.textContent = '❌ Incorrect password. Please try again.';
-                message.style.color = '#f44336';
-
-                setTimeout(() => {
-                    message.textContent = originalText;
-                    message.style.color = '';
-                }, 2000);
-
-                document.getElementById('passwordInput').value = '';
-            }
-        }
-
-        // Allow Enter key to submit
-        document.addEventListener('DOMContentLoaded', () => {
-            document.getElementById('passwordInput')?.addEventListener('keypress', (e) => {
-                if (e.key === 'Enter') {
-                    checkPassword();
-                }
-            });
-        });
 
         function toggleShuffle() {
             shouldShuffle = !shouldShuffle;
